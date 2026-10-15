@@ -1,32 +1,19 @@
-// ============================================================
-// script.js — page logic
-// You don't need to edit this file. All customization lives in config.js
-// ============================================================
-
-
-// ============================================================
-// INIT — runs once the HTML is ready
-// ============================================================
 document.addEventListener("DOMContentLoaded", () => {
-
-  // -- Entry screen symbol --
   document.getElementById("entry-symbol").textContent = CONFIG.entrySymbol;
 
-  // -- Name + interference effect --
   initNameEffect();
 
-  // -- Badges --
-  document.documentElement.style.setProperty("--badge-size",             CONFIG.badgeSize);
-  document.documentElement.style.setProperty("--badge-container-bg",     CONFIG.badgeContainerBackground);
+  document.documentElement.style.setProperty("--badge-size", CONFIG.badgeSize);
+  document.documentElement.style.setProperty("--badge-container-bg", CONFIG.badgeContainerBackground);
   document.documentElement.style.setProperty("--badge-container-border", CONFIG.badgeContainerBorder);
 
   const badgesContainer = document.getElementById("badges");
   (CONFIG.badges || []).forEach((badge) => {
-    const item    = document.createElement("div");
+    const item = document.createElement("div");
     item.className = "badge-item";
 
     const tooltip = document.createElement("span");
-    tooltip.className   = "badge-tooltip";
+    tooltip.className = "badge-tooltip";
     tooltip.textContent = badge.label || "";
 
     const img = document.createElement("img");
@@ -38,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
     badgesContainer.appendChild(item);
   });
 
-  // -- Avatar --
   document.getElementById("avatar").src = CONFIG.avatar;
   document.documentElement.style.setProperty("--avatar-size", CONFIG.avatarSize);
 
@@ -49,38 +35,34 @@ document.addEventListener("DOMContentLoaded", () => {
     decorationEl.style.display = "none";
   }
 
-  // -- Background video --
   const bgVideo = document.getElementById("bg-video");
   document.getElementById("bg-video-source").src = CONFIG.backgroundVideo;
   bgVideo.load();
 
-  // -- Card appearance --
-  document.documentElement.style.setProperty("--card-max-width",        CONFIG.cardMaxWidth);
-  document.documentElement.style.setProperty("--card-border-radius",    CONFIG.cardBorderRadius);
-  document.documentElement.style.setProperty("--card-background",       CONFIG.cardBackground);
-  document.documentElement.style.setProperty("--card-border",           CONFIG.cardBorder);
+  document.documentElement.style.setProperty("--card-max-width", CONFIG.cardMaxWidth);
+  document.documentElement.style.setProperty("--card-border-radius", CONFIG.cardBorderRadius);
+  document.documentElement.style.setProperty("--card-background", CONFIG.cardBackground);
+  document.documentElement.style.setProperty("--card-border", CONFIG.cardBorder);
   document.documentElement.style.setProperty("--card-tilt-perspective", CONFIG.cardTiltPerspective);
-  document.documentElement.style.setProperty("--username-glow",         CONFIG.usernameGlow);
+  document.documentElement.style.setProperty("--username-glow", CONFIG.usernameGlow);
 
-  // -- Discord box --
   document.documentElement.style.setProperty("--discord-box-background", CONFIG.discordBoxBackground);
-  document.documentElement.style.setProperty("--discord-box-radius",     CONFIG.discordBoxRadius);
-  document.documentElement.style.setProperty("--discord-box-border",     CONFIG.discordBoxBorder);
-  document.documentElement.style.setProperty("--discord-avatar-size",    CONFIG.discordAvatarSize);
-  document.documentElement.style.setProperty("--discord-avatar-border",  CONFIG.discordAvatarBorder);
+  document.documentElement.style.setProperty("--discord-box-radius", CONFIG.discordBoxRadius);
+  document.documentElement.style.setProperty("--discord-box-border", CONFIG.discordBoxBorder);
+  document.documentElement.style.setProperty("--discord-avatar-size", CONFIG.discordAvatarSize);
+  document.documentElement.style.setProperty("--discord-avatar-border", CONFIG.discordAvatarBorder);
 
-  // -- Social icons --
-  document.documentElement.style.setProperty("--icon-size",          CONFIG.iconSize);
+  document.documentElement.style.setProperty("--icon-size", CONFIG.iconSize);
   document.documentElement.style.setProperty("--icon-border-radius", CONFIG.iconBorderRadius);
-  document.documentElement.style.setProperty("--icon-glow-color",    CONFIG.iconGlowColor);
+  document.documentElement.style.setProperty("--icon-glow-color", CONFIG.iconGlowColor);
 
   const socialContainer = document.getElementById("social-links");
   CONFIG.socialLinks.forEach((link) => {
     const a = document.createElement("a");
-    a.href   = link.url;
+    a.href = link.url;
     a.target = "_blank";
-    a.rel    = "noopener noreferrer";
-    a.title  = link.name;
+    a.rel = "noopener noreferrer";
+    a.title = link.name;
 
     const icon = document.createElement("img");
     icon.className = "social-icon";
@@ -91,36 +73,27 @@ document.addEventListener("DOMContentLoaded", () => {
     socialContainer.appendChild(a);
   });
 
-  // -- Discord presence --
   document.getElementById("discord-username").textContent = CONFIG.discordUsername;
   document.getElementById("discord-activity").textContent = CONFIG.discordStatus;
-  document.getElementById("discord-avatar").src           = CONFIG.discordAvatar;
+  document.getElementById("discord-avatar").src = CONFIG.discordAvatar;
 
   const statusIconMap = {
-    online:  "assets/icons/status/online.png",
-    idle:    "assets/icons/status/inactive.png",
-    dnd:     "assets/icons/status/busy.png",
+    online: "assets/icons/status/online.png",
+    idle: "assets/icons/status/inactive.png",
+    dnd: "assets/icons/status/busy.png",
     offline: "assets/icons/status/offline.png",
   };
-  document.getElementById("discord-status-icon").src =
-    statusIconMap[CONFIG.discordPresenceStatus] || statusIconMap.offline;
+  document.getElementById("discord-status-icon").src = statusIconMap[CONFIG.discordPresenceStatus] || statusIconMap.offline;
 
-  // -- Custom cursor --
   if (CONFIG.customCursor) {
     const style = document.createElement("style");
     style.textContent = `* { cursor: url("${CONFIG.customCursor}") ${CONFIG.customCursorHotspot}, auto !important; }`;
     document.head.appendChild(style);
   }
 
-  // -- Tab title typewriter --
   initTabTitle(CONFIG.tabTitle);
-
-  // -- Cursor sparkle trail (active from page load) --
   initCursorTrail();
 
-  // --------------------------------------------------------
-  // Entry screen click — starts everything
-  // --------------------------------------------------------
   const profileCard = document.getElementById("profile-card");
 
   document.getElementById("entry-screen").addEventListener("click", (e) => {
@@ -138,39 +111,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }, CONFIG.cardRevealDelay);
   });
 
-  // --------------------------------------------------------
-  // 3D card tilt on mouse move
-  // --------------------------------------------------------
   if (CONFIG.cardTiltIntensity > 0) {
-    const tiltTransform = (x, y) =>
-      `translate(-50%, -50%) perspective(${CONFIG.cardTiltPerspective}) rotateX(${x}deg) rotateY(${y}deg)`;
+    const tiltTransform = (x, y) => `translate(-50%, -50%) perspective(${CONFIG.cardTiltPerspective}) rotateX(${x}deg) rotateY(${y}deg)`;
 
     const resetTransform = () => {
       profileCard.style.transform = tiltTransform(0, 0);
     };
 
     const applyTilt = (clientX, clientY) => {
-      const rect    = profileCard.getBoundingClientRect();
-      const offsetX = (clientX - rect.left)  / rect.width  - 0.5;
-      const offsetY = (clientY - rect.top)   / rect.height - 0.5;
-      profileCard.style.transform = tiltTransform(
-        -offsetY * 2 * CONFIG.cardTiltIntensity,
-         offsetX * 2 * CONFIG.cardTiltIntensity
-      );
+      const rect = profileCard.getBoundingClientRect();
+      const offsetX = (clientX - rect.left) / rect.width - 0.5;
+      const offsetY = (clientY - rect.top) / rect.height - 0.5;
+      profileCard.style.transform = tiltTransform(-offsetY * 2 * CONFIG.cardTiltIntensity, offsetX * 2 * CONFIG.cardTiltIntensity);
     };
 
-    // Mouse
-    profileCard.addEventListener("mousemove",  (e) => applyTilt(e.clientX, e.clientY));
+    profileCard.addEventListener("mousemove", (e) => applyTilt(e.clientX, e.clientY));
     profileCard.addEventListener("mouseleave", resetTransform);
 
-    // Touch (mobile)
     profileCard.addEventListener("touchmove", (e) => applyTilt(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
-    profileCard.addEventListener("touchend",  resetTransform);
+    profileCard.addEventListener("touchend", resetTransform);
   }
 
-  // --------------------------------------------------------
-  // Volume slider
-  // --------------------------------------------------------
   const volumeSlider = document.getElementById("volume-slider");
   const volumeIcon = document.querySelector(".volume-icon");
 
@@ -188,21 +149,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   syncVolumeState(volumeSlider.value);
-
 });
 
-
-// ============================================================
-// NAME INTERFERENCE EFFECT
-// Applies an SVG displacement filter to the name span.
-// The filter seed changes every 40ms, making the letters
-// "vibrate" like a bad TV signal — all done by the GPU.
-// ============================================================
 function initNameEffect() {
-  const nameEl  = document.getElementById("name-text");
+  const nameEl = document.getElementById("name-text");
   const tooltip = document.getElementById("name-tooltip");
 
-  nameEl.textContent  = CONFIG.profileName;
+  nameEl.textContent = CONFIG.profileName;
   tooltip.textContent = CONFIG.nameTooltip || "";
 
   if (CONFIG.nameEffect !== "noise") {
@@ -215,22 +168,14 @@ function initNameEffect() {
 
   setInterval(() => {
     turb.setAttribute("seed", Math.floor(Math.random() * 9999));
-    // 80% of the time: heavy distortion / 20%: almost clean
-    const scale = Math.random() < 0.8
-      ? 4 + Math.random() * 8
-      : 0.5 + Math.random() * 2;
+    const scale = Math.random() < 0.8 ? 4 + Math.random() * 8 : 0.5 + Math.random() * 2;
     disp.setAttribute("scale", scale.toFixed(1));
   }, 40);
 }
 
-
-// ============================================================
-// TAB TITLE TYPEWRITER
-// Types the title in the browser tab, pauses, deletes, repeats.
-// ============================================================
 function initTabTitle(text) {
-  let index     = 0;
-  let isTyping  = true;
+  let index = 0;
+  let isTyping = true;
 
   function tick() {
     if (isTyping) {
@@ -252,14 +197,8 @@ function initTabTitle(text) {
   tick();
 }
 
-
-// ============================================================
-// STATUS TYPEWRITER
-// Types the status text, pauses, deletes, and repeats.
-// The blinking cursor "|" is added via CSS (::after on #profile-status).
-// ============================================================
 function initTypewriter(el, text, speed = 80) {
-  let i          = 0;
+  let i = 0;
   let isDeleting = false;
 
   function tick() {
@@ -267,7 +206,10 @@ function initTypewriter(el, text, speed = 80) {
       el.textContent = text.substring(0, i);
       i++;
       if (i > text.length) {
-        setTimeout(() => { isDeleting = true; tick(); }, 1800);
+        setTimeout(() => {
+          isDeleting = true;
+          tick();
+        }, 1800);
         return;
       }
     } else {
@@ -286,28 +228,21 @@ function initTypewriter(el, text, speed = 80) {
   tick();
 }
 
-
-// ============================================================
-// BACKGROUND PARTICLES
-// Dots that fall from top to bottom with a gentle horizontal
-// sway. They also shift opposite to the mouse movement,
-// creating a parallax depth effect.
-// Starts only after the entry screen is clicked.
-// ============================================================
 function initParticles() {
   const canvas = document.getElementById("bg-canvas");
-  const ctx    = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d");
 
-  const { particleColor, particleCount, particleFallDuration,
-          particleSwayDuration, particleSwayAmount, particleParallaxStrength } = CONFIG;
+  const { particleColor, particleCount, particleFallDuration, particleSwayDuration, particleSwayAmount, particleParallaxStrength } = CONFIG;
 
   let particles = [];
-  let mouseX    = window.innerWidth / 2;
+  let mouseX = window.innerWidth / 2;
 
-  document.addEventListener("mousemove", (e) => { mouseX = e.clientX; });
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+  });
 
   function resize() {
-    canvas.width  = window.innerWidth;
+    canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
 
@@ -315,13 +250,13 @@ function initParticles() {
     particles = [];
     for (let i = 0; i < particleCount; i++) {
       particles.push({
-        baseX:      Math.random() * canvas.width,
-        y:          Math.random() * canvas.height * 1.5 - canvas.height * 0.5,
-        r:          1 + Math.random() * 1.8,
-        swayPhase:  Math.random() * Math.PI * 2,
-        swaySpeed:  (Math.random() * 0.6 + 0.7) / particleSwayDuration,
-        fallSpeed:  (canvas.height * 1.1) / (particleFallDuration * 60) * (0.7 + Math.random() * 0.6),
-        opacity:    0.4 + Math.random() * 0.6,
+        baseX: Math.random() * canvas.width,
+        y: Math.random() * canvas.height * 1.5 - canvas.height * 0.5,
+        r: 1 + Math.random() * 1.8,
+        swayPhase: Math.random() * Math.PI * 2,
+        swaySpeed: (Math.random() * 0.6 + 0.7) / particleSwayDuration,
+        fallSpeed: (canvas.height * 1.1) / (particleFallDuration * 60) * (0.7 + Math.random() * 0.6),
+        opacity: 0.4 + Math.random() * 0.6,
       });
     }
   }
@@ -335,7 +270,7 @@ function initParticles() {
     particles.forEach((p) => {
       p.y += p.fallSpeed;
       if (p.y > canvas.height + 10) {
-        p.y     = -10;
+        p.y = -10;
         p.baseX = Math.random() * canvas.width;
       }
 
@@ -355,28 +290,24 @@ function initParticles() {
 
   resize();
   createParticles();
-  window.addEventListener("resize", () => { resize(); createParticles(); });
+  window.addEventListener("resize", () => {
+    resize();
+    createParticles();
+  });
   requestAnimationFrame(draw);
 }
 
-
-// ============================================================
-// CURSOR SPARKLE TRAIL
-// 4-pointed star sparkles that appear at the cursor position
-// and fade out while drifting. Spawning is done inside the
-// requestAnimationFrame loop (not in mousemove) to avoid lag.
-// ============================================================
 function initCursorTrail() {
   const canvas = document.getElementById("cursor-canvas");
-  const ctx    = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d");
 
-  const { shootingStarColors, shootingStarSize,
-          shootingStarMaxParticles, shootingStarFadeFrames,
-          shootingStarGlow } = CONFIG;
+  const { shootingStarColors, shootingStarSize, shootingStarMaxParticles, shootingStarFadeFrames, shootingStarGlow } = CONFIG;
 
   let particles = [];
-  let mouseX = -999, mouseY = -999;
-  let lastX  = -999, lastY  = -999;
+  let mouseX = -999;
+  let mouseY = -999;
+  let lastX = -999;
+  let lastY = -999;
 
   document.addEventListener("mousemove", (e) => {
     mouseX = e.clientX;
@@ -384,7 +315,7 @@ function initCursorTrail() {
   });
 
   function resize() {
-    canvas.width  = window.innerWidth;
+    canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
 
@@ -394,10 +325,10 @@ function initCursorTrail() {
     ctx.rotate(rotation);
     ctx.beginPath();
     ctx.moveTo(0, -size);
-    ctx.quadraticCurveTo( size * 0.2, -size * 0.2,  size, 0);
-    ctx.quadraticCurveTo( size * 0.2,  size * 0.2,  0,    size);
-    ctx.quadraticCurveTo(-size * 0.2,  size * 0.2, -size, 0);
-    ctx.quadraticCurveTo(-size * 0.2, -size * 0.2,  0,   -size);
+    ctx.quadraticCurveTo(size * 0.2, -size * 0.2, size, 0);
+    ctx.quadraticCurveTo(size * 0.2, size * 0.2, 0, size);
+    ctx.quadraticCurveTo(-size * 0.2, size * 0.2, -size, 0);
+    ctx.quadraticCurveTo(-size * 0.2, -size * 0.2, 0, -size);
     ctx.closePath();
     ctx.fill();
     ctx.restore();
@@ -406,20 +337,19 @@ function initCursorTrail() {
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Spawn new particles only when the mouse has moved
     if (mouseX !== lastX || mouseY !== lastY) {
       for (let i = 0; i < shootingStarMaxParticles; i++) {
         particles.push({
-          x:             mouseX,
-          y:             mouseY,
-          vx:            (Math.random() - 0.5) * 1.2,
-          vy:            (Math.random() - 0.5) * 1.2,
-          life:          1,
-          size:          shootingStarSize * (0.5 + Math.random() * 0.7),
-          rotation:      Math.random() * Math.PI * 2,
+          x: mouseX,
+          y: mouseY,
+          vx: (Math.random() - 0.5) * 1.2,
+          vy: (Math.random() - 0.5) * 1.2,
+          life: 1,
+          size: shootingStarSize * (0.5 + Math.random() * 0.7),
+          rotation: Math.random() * Math.PI * 2,
           rotationSpeed: (Math.random() - 0.5) * 0.12,
-          twinklePhase:  Math.random() * Math.PI * 2,
-          color:         shootingStarColors[Math.floor(Math.random() * shootingStarColors.length)],
+          twinklePhase: Math.random() * Math.PI * 2,
+          color: shootingStarColors[Math.floor(Math.random() * shootingStarColors.length)],
         });
       }
       lastX = mouseX;
@@ -427,26 +357,26 @@ function initCursorTrail() {
     }
 
     particles.forEach((p) => {
-      p.x        += p.vx;
-      p.y        += p.vy;
-      p.vx       *= 0.97;
-      p.vy       *= 0.97;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.97;
+      p.vy *= 0.97;
       p.rotation += p.rotationSpeed;
-      p.life     -= 1 / shootingStarFadeFrames;
+      p.life -= 1 / shootingStarFadeFrames;
 
-      const life    = Math.max(p.life, 0);
+      const life = Math.max(p.life, 0);
       const twinkle = 0.75 + 0.25 * Math.sin(performance.now() * 0.015 + p.twinklePhase);
 
       ctx.globalAlpha = life;
-      ctx.fillStyle   = p.color;
+      ctx.fillStyle = p.color;
       ctx.shadowColor = p.color;
-      ctx.shadowBlur  = shootingStarGlow;
+      ctx.shadowBlur = shootingStarGlow;
       drawStar(p.x, p.y, p.size * life * twinkle, p.rotation);
     });
 
-    particles     = particles.filter((p) => p.life > 0);
+    particles = particles.filter((p) => p.life > 0);
     ctx.globalAlpha = 1;
-    ctx.shadowBlur  = 0;
+    ctx.shadowBlur = 0;
     requestAnimationFrame(draw);
   }
 
