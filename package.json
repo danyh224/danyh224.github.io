@@ -1,0 +1,20 @@
+{
+  "name": "site-build",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npm run clean && npm run min:css && npm run min:js && npm run min:html && npm run copy:assets",
+    "clean": "rm -rf dist && mkdir -p dist",
+    "min:css": "npx postcss css/style.css --use cssnano -o dist/css/style.min.css",
+    "min:js": "mkdir -p dist/js && cat js/*.js > dist/js/combined.js && npx terser dist/js/combined.js -o dist/js/script.min.js -c -m",
+    "min:html": "npx html-minifier-terser --collapse-whitespace --remove-comments --minify-js --minify-css -o dist/index.html index.html",
+    "copy:assets": "cp -r assets dist/assets || true"
+  },
+  "devDependencies": {
+    "cssnano": "^7.0.0",
+    "html-minifier-terser": "^7.0.0",
+    "postcss": "^8.4.0",
+    "postcss-cli": "^11.0.0",
+    "terser": "^5.31.1"
+  }
+}
