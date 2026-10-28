@@ -12,11 +12,12 @@ const CONFIG = {
   customCursorHotspot: "0 0",
 
   avatarSize: "118px",
-  avatarDecoration: "https://discord-decoration.art/decorations/starlight_tiara.png",
+  avatarDecoration:
+    "https://discord-decoration.art/decorations/starlight_tiara.png",
 
   badges: [
     { icon: "assets/badges/owner.png", label: "Owner" },
-    { icon: "assets/badges/verified.png", label: "Verified" }
+    { icon: "assets/badges/verified.png", label: "Verified" },
   ],
   badgeSize: "22px",
   badgeContainerBackground: "rgba(172, 200, 255, 0.08)",
@@ -30,11 +31,31 @@ const CONFIG = {
   discordPresenceStatus: "idle",
 
   socialLinks: [
-    { name: "Instagram", url: "https://instagram.com/danyh.224", icon: "assets/icons/instagram.png" },
-    { name: "Spotify", url: "https://open.spotify.com/user/31c42pgpxnefsxsat7tskfxt544e?utm_source=generator", icon: "assets/icons/spotify.png" },
-    { name: "TikTok", url: "https://www.tiktok.com/@danyh.224", icon: "assets/icons/tiktok.png" },
-    { name: "OnlyFans", url: "https://onlyfans.com/aryminh", icon: "assets/icons/onlyfans.png" },
-    { name: "Github", url: "https://github.com/danyh224", icon: "assets/icons/github.png" }
+    {
+      name: "Instagram",
+      url: "https://instagram.com/danyh.224",
+      icon: "assets/icons/instagram.png",
+    },
+    {
+      name: "Spotify",
+      url: "https://open.spotify.com/user/31c42pgpxnefsxsat7tskfxt544e?utm_source=generator",
+      icon: "assets/icons/spotify.png",
+    },
+    {
+      name: "TikTok",
+      url: "https://www.tiktok.com/@danyh.224",
+      icon: "assets/icons/tiktok.png",
+    },
+    {
+      name: "OnlyFans",
+      url: "https://onlyfans.com/aryminh",
+      icon: "assets/icons/onlyfans.png",
+    },
+    {
+      name: "Github",
+      url: "https://github.com/danyh224",
+      icon: "assets/icons/github.png",
+    },
   ],
   iconSize: "36px",
   iconBorderRadius: "8px",
@@ -65,5 +86,5 @@ const CONFIG = {
   shootingStarSize: 3,
   shootingStarMaxParticles: 4,
   shootingStarFadeFrames: 30,
-  shootingStarGlow: 8
+  shootingStarGlow: 8,
 };
