@@ -4,8 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
   initNameEffect();
 
   document.documentElement.style.setProperty("--badge-size", CONFIG.badgeSize);
-  document.documentElement.style.setProperty("--badge-container-bg", CONFIG.badgeContainerBackground);
-  document.documentElement.style.setProperty("--badge-container-border", CONFIG.badgeContainerBorder);
+  document.documentElement.style.setProperty(
+    "--badge-container-bg",
+    CONFIG.badgeContainerBackground,
+  );
+  document.documentElement.style.setProperty(
+    "--badge-container-border",
+    CONFIG.badgeContainerBorder,
+  );
 
   const badgesContainer = document.getElementById("badges");
   (CONFIG.badges || []).forEach((badge) => {
@@ -26,7 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("avatar").src = CONFIG.avatar;
-  document.documentElement.style.setProperty("--avatar-size", CONFIG.avatarSize);
+  document.documentElement.style.setProperty(
+    "--avatar-size",
+    CONFIG.avatarSize,
+  );
 
   const decorationEl = document.getElementById("avatar-decoration");
   if (CONFIG.avatarDecoration) {
@@ -39,22 +48,61 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("bg-video-source").src = CONFIG.backgroundVideo;
   bgVideo.load();
 
-  document.documentElement.style.setProperty("--card-max-width", CONFIG.cardMaxWidth);
-  document.documentElement.style.setProperty("--card-border-radius", CONFIG.cardBorderRadius);
-  document.documentElement.style.setProperty("--card-background", CONFIG.cardBackground);
-  document.documentElement.style.setProperty("--card-border", CONFIG.cardBorder);
-  document.documentElement.style.setProperty("--card-tilt-perspective", CONFIG.cardTiltPerspective);
-  document.documentElement.style.setProperty("--username-glow", CONFIG.usernameGlow);
+  document.documentElement.style.setProperty(
+    "--card-max-width",
+    CONFIG.cardMaxWidth,
+  );
+  document.documentElement.style.setProperty(
+    "--card-border-radius",
+    CONFIG.cardBorderRadius,
+  );
+  document.documentElement.style.setProperty(
+    "--card-background",
+    CONFIG.cardBackground,
+  );
+  document.documentElement.style.setProperty(
+    "--card-border",
+    CONFIG.cardBorder,
+  );
+  document.documentElement.style.setProperty(
+    "--card-tilt-perspective",
+    CONFIG.cardTiltPerspective,
+  );
+  document.documentElement.style.setProperty(
+    "--username-glow",
+    CONFIG.usernameGlow,
+  );
 
-  document.documentElement.style.setProperty("--discord-box-background", CONFIG.discordBoxBackground);
-  document.documentElement.style.setProperty("--discord-box-radius", CONFIG.discordBoxRadius);
-  document.documentElement.style.setProperty("--discord-box-border", CONFIG.discordBoxBorder);
-  document.documentElement.style.setProperty("--discord-avatar-size", CONFIG.discordAvatarSize);
-  document.documentElement.style.setProperty("--discord-avatar-border", CONFIG.discordAvatarBorder);
+  document.documentElement.style.setProperty(
+    "--discord-box-background",
+    CONFIG.discordBoxBackground,
+  );
+  document.documentElement.style.setProperty(
+    "--discord-box-radius",
+    CONFIG.discordBoxRadius,
+  );
+  document.documentElement.style.setProperty(
+    "--discord-box-border",
+    CONFIG.discordBoxBorder,
+  );
+  document.documentElement.style.setProperty(
+    "--discord-avatar-size",
+    CONFIG.discordAvatarSize,
+  );
+  document.documentElement.style.setProperty(
+    "--discord-avatar-border",
+    CONFIG.discordAvatarBorder,
+  );
 
   document.documentElement.style.setProperty("--icon-size", CONFIG.iconSize);
-  document.documentElement.style.setProperty("--icon-border-radius", CONFIG.iconBorderRadius);
-  document.documentElement.style.setProperty("--icon-glow-color", CONFIG.iconGlowColor);
+  document.documentElement.style.setProperty(
+    "--icon-border-radius",
+    CONFIG.iconBorderRadius,
+  );
+  document.documentElement.style.setProperty(
+    "--icon-glow-color",
+    CONFIG.iconGlowColor,
+  );
 
   const socialContainer = document.getElementById("social-links");
   CONFIG.socialLinks.forEach((link) => {
@@ -73,8 +121,10 @@ document.addEventListener("DOMContentLoaded", () => {
     socialContainer.appendChild(a);
   });
 
-  document.getElementById("discord-username").textContent = CONFIG.discordUsername;
-  document.getElementById("discord-activity").textContent = CONFIG.discordStatus;
+  document.getElementById("discord-username").textContent =
+    CONFIG.discordUsername;
+  document.getElementById("discord-activity").textContent =
+    CONFIG.discordStatus;
   document.getElementById("discord-avatar").src = CONFIG.discordAvatar;
 
   const statusIconMap = {
@@ -83,7 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
     dnd: "assets/icons/status/busy.png",
     offline: "assets/icons/status/offline.png",
   };
-  document.getElementById("discord-status-icon").src = statusIconMap[CONFIG.discordPresenceStatus] || statusIconMap.offline;
+  document.getElementById("discord-status-icon").src =
+    statusIconMap[CONFIG.discordPresenceStatus] || statusIconMap.offline;
 
   if (CONFIG.customCursor) {
     const style = document.createElement("style");
@@ -107,12 +158,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       profileCard.classList.add("revealed");
-      initTypewriter(document.getElementById("profile-status"), CONFIG.statusText, 60);
+      initTypewriter(
+        document.getElementById("profile-status"),
+        CONFIG.statusText,
+        60,
+      );
     }, CONFIG.cardRevealDelay);
   });
 
   if (CONFIG.cardTiltIntensity > 0) {
-    const tiltTransform = (x, y) => `translate(-50%, -50%) perspective(${CONFIG.cardTiltPerspective}) rotateX(${x}deg) rotateY(${y}deg)`;
+    const tiltTransform = (x, y) =>
+      `translate(-50%, -50%) perspective(${CONFIG.cardTiltPerspective}) rotateX(${x}deg) rotateY(${y}deg)`;
 
     const resetTransform = () => {
       profileCard.style.transform = tiltTransform(0, 0);
@@ -122,13 +178,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const rect = profileCard.getBoundingClientRect();
       const offsetX = (clientX - rect.left) / rect.width - 0.5;
       const offsetY = (clientY - rect.top) / rect.height - 0.5;
-      profileCard.style.transform = tiltTransform(-offsetY * 2 * CONFIG.cardTiltIntensity, offsetX * 2 * CONFIG.cardTiltIntensity);
+      profileCard.style.transform = tiltTransform(
+        -offsetY * 2 * CONFIG.cardTiltIntensity,
+        offsetX * 2 * CONFIG.cardTiltIntensity,
+      );
     };
 
-    profileCard.addEventListener("mousemove", (e) => applyTilt(e.clientX, e.clientY));
+    profileCard.addEventListener("mousemove", (e) =>
+      applyTilt(e.clientX, e.clientY),
+    );
     profileCard.addEventListener("mouseleave", resetTransform);
 
-    profileCard.addEventListener("touchmove", (e) => applyTilt(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+    profileCard.addEventListener(
+      "touchmove",
+      (e) => applyTilt(e.touches[0].clientX, e.touches[0].clientY),
+      { passive: true },
+    );
     profileCard.addEventListener("touchend", resetTransform);
   }
 
@@ -141,7 +206,8 @@ document.addEventListener("DOMContentLoaded", () => {
     bgVideo.muted = safeValue === 0;
     volumeSlider.value = String(safeValue);
     volumeSlider.style.setProperty("--volume-percent", `${safeValue * 100}%`);
-    volumeIcon.textContent = safeValue === 0 ? "🔇" : safeValue < 0.35 ? "🔉" : "🔊";
+    volumeIcon.textContent =
+      safeValue === 0 ? "🔇" : safeValue < 0.35 ? "🔉" : "🔊";
   };
 
   volumeSlider.addEventListener("input", (e) => {
@@ -168,7 +234,8 @@ function initNameEffect() {
 
   setInterval(() => {
     turb.setAttribute("seed", Math.floor(Math.random() * 9999));
-    const scale = Math.random() < 0.8 ? 4 + Math.random() * 8 : 0.5 + Math.random() * 2;
+    const scale =
+      Math.random() < 0.8 ? 4 + Math.random() * 8 : 0.5 + Math.random() * 2;
     disp.setAttribute("scale", scale.toFixed(1));
   }, 40);
 }
@@ -232,7 +299,14 @@ function initParticles() {
   const canvas = document.getElementById("bg-canvas");
   const ctx = canvas.getContext("2d");
 
-  const { particleColor, particleCount, particleFallDuration, particleSwayDuration, particleSwayAmount, particleParallaxStrength } = CONFIG;
+  const {
+    particleColor,
+    particleCount,
+    particleFallDuration,
+    particleSwayDuration,
+    particleSwayAmount,
+    particleParallaxStrength,
+  } = CONFIG;
 
   let particles = [];
   let mouseX = window.innerWidth / 2;
@@ -255,7 +329,9 @@ function initParticles() {
         r: 1 + Math.random() * 1.8,
         swayPhase: Math.random() * Math.PI * 2,
         swaySpeed: (Math.random() * 0.6 + 0.7) / particleSwayDuration,
-        fallSpeed: (canvas.height * 1.1) / (particleFallDuration * 60) * (0.7 + Math.random() * 0.6),
+        fallSpeed:
+          ((canvas.height * 1.1) / (particleFallDuration * 60)) *
+          (0.7 + Math.random() * 0.6),
         opacity: 0.4 + Math.random() * 0.6,
       });
     }
@@ -265,7 +341,8 @@ function initParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = particleColor;
 
-    const parallaxOffset = -(mouseX - canvas.width / 2) * particleParallaxStrength;
+    const parallaxOffset =
+      -(mouseX - canvas.width / 2) * particleParallaxStrength;
 
     particles.forEach((p) => {
       p.y += p.fallSpeed;
@@ -274,7 +351,9 @@ function initParticles() {
         p.baseX = Math.random() * canvas.width;
       }
 
-      const sway = Math.sin(performance.now() * 0.001 * p.swaySpeed + p.swayPhase) * particleSwayAmount;
+      const sway =
+        Math.sin(performance.now() * 0.001 * p.swaySpeed + p.swayPhase) *
+        particleSwayAmount;
       let x = p.baseX + sway + parallaxOffset;
       x = ((x % canvas.width) + canvas.width) % canvas.width;
 
@@ -301,7 +380,13 @@ function initCursorTrail() {
   const canvas = document.getElementById("cursor-canvas");
   const ctx = canvas.getContext("2d");
 
-  const { shootingStarColors, shootingStarSize, shootingStarMaxParticles, shootingStarFadeFrames, shootingStarGlow } = CONFIG;
+  const {
+    shootingStarColors,
+    shootingStarSize,
+    shootingStarMaxParticles,
+    shootingStarFadeFrames,
+    shootingStarGlow,
+  } = CONFIG;
 
   let particles = [];
   let mouseX = -999;
@@ -349,7 +434,10 @@ function initCursorTrail() {
           rotation: Math.random() * Math.PI * 2,
           rotationSpeed: (Math.random() - 0.5) * 0.12,
           twinklePhase: Math.random() * Math.PI * 2,
-          color: shootingStarColors[Math.floor(Math.random() * shootingStarColors.length)],
+          color:
+            shootingStarColors[
+              Math.floor(Math.random() * shootingStarColors.length)
+            ],
         });
       }
       lastX = mouseX;
@@ -365,7 +453,8 @@ function initCursorTrail() {
       p.life -= 1 / shootingStarFadeFrames;
 
       const life = Math.max(p.life, 0);
-      const twinkle = 0.75 + 0.25 * Math.sin(performance.now() * 0.015 + p.twinklePhase);
+      const twinkle =
+        0.75 + 0.25 * Math.sin(performance.now() * 0.015 + p.twinklePhase);
 
       ctx.globalAlpha = life;
       ctx.fillStyle = p.color;
